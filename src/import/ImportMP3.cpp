@@ -1099,7 +1099,7 @@ enum mad_flow MP3ImportFileHandle::ErrorCB(struct mad_stream *stream,
    // Let the user know about the error
    AudacityMessageBox(XO("Import failed\n\nThis is likely caused by a malformed MP3.\n\n"));
 
-   return MAD_FLOW_BREAK;
+   return MAD_FLOW_CONTINUE;
 }
 
 #endif
