@@ -101,9 +101,9 @@ int open_mixers(px_mixer *Px, UINT deviceIn, UINT deviceOut)
    PxInfo*info;
    MMRESULT res;
   
-   if (is_vista_or_later()) {
-      return open_ep_mixers(Px, deviceIn, deviceOut);
-   }
+   //if (is_vista_or_later()) {
+   //   return open_ep_mixers(Px, deviceIn, deviceOut);
+   //}
 
    res = mixerGetID((HMIXEROBJ) (UINT_PTR) (deviceIn == WAVE_MAPPER ? 0 : deviceIn),
                     &deviceIn,
