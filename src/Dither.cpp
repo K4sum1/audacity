@@ -423,7 +423,7 @@ EnumSetting< DitherType > Dither::FastSetting{
 EnumSetting< DitherType > Dither::BestSetting{
    wxT("Quality/HQDitherAlgorithmChoice"),
    choicesDither,
-   3, // shaped
+   2, // triangle
 
    // for migrating old preferences:
    intChoicesDither,
