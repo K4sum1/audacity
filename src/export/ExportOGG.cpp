@@ -279,7 +279,7 @@ ProgressResult ExportOGG::Export(AudacityProject *project,
       auto mixer = CreateMixer(tracks, selectionOnly,
          t0, t1,
          numChannels, SAMPLES_PER_RUN, false,
-         rate, floatSample, mixerSpec);
+         rate, int16Sample, mixerSpec);
 
       InitProgress( pDialog, fName,
          selectionOnly
@@ -288,7 +288,7 @@ ProgressResult ExportOGG::Export(AudacityProject *project,
       auto &progress = *pDialog;
 
       while (updateResult == ProgressResult::Success && !eos) {
-         float **vorbis_buffer = vorbis_analysis_buffer(&dsp, SAMPLES_PER_RUN);
+         short **vorbis_buffer = vorbis_analysis_buffer(&dsp, SAMPLES_PER_RUN);
          auto samplesThisRun = mixer->Process(SAMPLES_PER_RUN);
 
          int err;
@@ -299,8 +299,8 @@ ProgressResult ExportOGG::Export(AudacityProject *project,
          else {
 
             for (size_t i = 0; i < numChannels; i++) {
-               float *temp = (float *)mixer->GetBuffer(i);
-               memcpy(vorbis_buffer[i], temp, sizeof(float)*SAMPLES_PER_RUN);
+               short *temp = (short *)mixer->GetBuffer(i);
+               memcpy(vorbis_buffer[i], temp, sizeof(short)*SAMPLES_PER_RUN);
             }
 
             // tell the encoder how many samples we have
