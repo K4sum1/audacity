@@ -1000,7 +1000,16 @@ enum mad_flow MP3ImportFileHandle::ErrorCB(struct mad_stream *stream,
    }
 
    // Let the user know about the error
-   AudacityMessageBox(XO("MP3 Decoding Failed:\n\n%s").Format(mad_stream_errorstr(stream)));
+   int openError =
+      AudacityMessageBox(
+         XO("This file may be malicious or result in a crash if imported.\n\nMP3 Decoding Failed: %s\n\nImport anyways? This message will prompt twice.").Format(mad_stream_errorstr(stream)),
+         XO("Malformed MP3 Detected"),
+         wxYES_NO | wxICON_QUESTION);
+
+   if (openError == wxYES)
+   {
+     return MAD_FLOW_CONTINUE;
+   }
 
    return MAD_FLOW_BREAK;
 }
